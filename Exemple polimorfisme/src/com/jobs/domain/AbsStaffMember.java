@@ -26,4 +26,6 @@ public abstract class AbsStaffMember {
 	}
 
 	public abstract void pay();
+	
+	public abstract String toString();
 }

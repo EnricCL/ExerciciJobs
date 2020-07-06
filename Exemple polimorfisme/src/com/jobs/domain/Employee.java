@@ -64,5 +64,17 @@ public class Employee extends AbsStaffMember {
 	public double getTotalPaid() {
 		return totalPaid;
 	}
+	
+	public String toString() {
+		
+		String resposta = "\nNom: " + getName()
+						+ " - Adreça: " + getAddress()
+						+ " - Telèfon: " + getPhone()
+						+ " - Salari: " + getSalaryPerMonth()
+						+ " - Cobrament Real: " + (double)Math.round(getTotalPaid()*100d)/100d;
+		
+		return resposta;
+	}
+	
 
 }

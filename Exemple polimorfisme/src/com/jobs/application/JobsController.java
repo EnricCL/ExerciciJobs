@@ -2,13 +2,12 @@ package com.jobs.application;
 /**
  * @autor Enric Comes
  */
-import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 
 import com.jobs.domain.AbsStaffMember;
 import com.jobs.domain.Employee;
-import com.jobs.domain.IPaymentRate;
+
 import com.jobs.persistence.EmployeeRepository;
 import com.jobs.domain.Volunteer;
 
@@ -18,7 +17,7 @@ public class JobsController {
 	
 	private List llistaEmpleats;
 	String empleats="", classe="";
-	Employee empleatBuit;
+	AbsStaffMember empleatBuit;
 	Volunteer voluntariBuit;
 	
 	public JobsController(){
@@ -53,19 +52,11 @@ public class JobsController {
 	
 		//Obtenir un llistat d'empleats amb el mètode del repository
 		llistaEmpleats = repository.getAllMembers();
-		double resultat;
-		
-		/* Es recorra la llista, si la classe és Employee, 
-		* es fa un objecte Employee i s'aplica el pagament
-		*/
+	
+		//Es recorra la llista per aplicar pagament en cada membre
 		for(int i=0; i<llistaEmpleats.size(); i++) {
-			
-			classe = llistaEmpleats.get(i).getClass().toString();
-			
-			if(classe.equals("class com.jobs.domain.Employee")){
-				empleatBuit = (Employee)llistaEmpleats.get(i);
-				empleatBuit.pay();	
-			}
+			empleatBuit = (AbsStaffMember)llistaEmpleats.get(i);
+			empleatBuit.pay();	
 		}
 		
 	}
@@ -76,37 +67,8 @@ public class JobsController {
 	 */
 	public String getAllEmployees() {
 		
-		//S'aprofita el llistat ja creat i es torna a recòrrer		
-		for(int i=0; i<llistaEmpleats.size(); i++) {
-			
-			classe = llistaEmpleats.get(i).getClass().toString();
-			
-			/* Si és un Employee, s'afegeix salari i cobrament real del totalPaid,
-			* que és de la classe abstracta a la que pertany Employee
-			*/
-			if(classe.equals("class com.jobs.domain.Employee")){
-				empleatBuit = (Employee)llistaEmpleats.get(i);				
-				empleats = empleats +"\nNom: " + empleatBuit.getName()
-									+ " - Adreça: " + empleatBuit.getAddress()
-									+ " - Telèfon: " + empleatBuit.getPhone()
-									+ " - Salari: " + empleatBuit.getSalaryPerMonth()
-									+ " - Cobrament Real: " + empleatBuit.getTotalPaid(); 
-				
-			
-			}
-			/**
-			 * Si no, serà del tipus Volunteer i sols es mostraran menys dades,
-			 * sense salari i el cobrament a 0
-			 */
-			else if(classe.equals("class com.jobs.domain.Volunteer")){
-				voluntariBuit = (Volunteer)llistaEmpleats.get(i);
-				empleats = empleats +"\nNom: " + voluntariBuit.getName() 
-									+" - Adreça: " + voluntariBuit.getAddress()
-									+" - Telèfon: " + voluntariBuit.getPhone()
-									+" - Cobrament: 0";
-			}
-		}
-		
+		//S'aprofita el llistat ja creat 		
+		empleats = llistaEmpleats.toString();
 		return empleats;
 	}
 	

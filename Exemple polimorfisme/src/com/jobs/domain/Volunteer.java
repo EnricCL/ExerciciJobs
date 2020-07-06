@@ -26,5 +26,14 @@ public class Volunteer extends AbsStaffMember {
 		//TODO
 		
 	}
+	
+	public String toString() {
+		
+		String resposta = "\nNom: " + getName()
+						+ " - Adreça: " + getAddress()
+						+ " - Telèfon: " + getPhone();
+		
+		return resposta;
+	}
 
 }
